@@ -32,7 +32,7 @@
           Backbone._sync(method, Backbone.cachedModel, success, error);
           Backbone.outerCounter = 0;
           Backbone.innerCounter = 0;          
-          delaying = false;
+          Backbone.delaying = false;
           Backbone.cachedModel = {};
         }
       }, Backbone.delayedTime);
