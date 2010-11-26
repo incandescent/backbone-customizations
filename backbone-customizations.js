@@ -20,16 +20,17 @@
   
   // add support for requests with delay
   Backbone.sync = function(method, model, success, error, delayed) {
-    Backbone.outerCounter += 1;
-    // extend cachedModel with keys from model
-    $.extend(true, Backbone.cachedModel, model);
     if (delayed || Backbone.delaying == true) {
+      Backbone.outerCounter += 1;
+      // extend cachedModel with keys from model
+      $.extend(true, Backbone.cachedModel, model);
       Backbone.delaying = true;
       // wait for last event before saving
       setTimeout(function(){
         Backbone.innerCounter += 1;
         if (Backbone.innerCounter == Backbone.outerCounter) {
           Backbone._sync(method, Backbone.cachedModel, success, error);
+          // reset counters and flags
           Backbone.outerCounter = 0;
           Backbone.innerCounter = 0;          
           Backbone.delaying = false;
